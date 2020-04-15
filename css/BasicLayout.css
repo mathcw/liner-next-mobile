@@ -1,0 +1,20 @@
+.container {
+    width: 100vw!important;
+    height: 100vh!important;
+}
+
+.menu {
+    display: contents;
+    align-items: center;
+}
+
+.menu-link>a {
+    font-style: 14px;
+    color: rgba(0, 0, 0, 0.65);
+}
+>>>.droLink{
+font-size:0.8rem;
+display:inlineBlock;
+color: rgba(0,0,0,0.65);
+ marginLeft: 0.8rem
+}
