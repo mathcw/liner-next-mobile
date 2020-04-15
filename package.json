@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "NODE_ENV=production next start -p 8020"
+    "start": "NODE_ENV=production next start -p 8030"
   },
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
