@@ -105,7 +105,7 @@ const Detail = ({ data, dict }) => {
                                     }
                                 </div>
                                 <div className="img">
-                                    <img src={itin['pic_arr'].length > 0 ? itin['pic_arr'][0] : getStaticFile('/img.png')} />
+                                    <img src={itin['pic_arr'].length > 0 ? itin['pic_arr'][0] : getStaticFile('/pic.png')} />
                                 </div>
                                 <div className="text">
                                 {itin['des']}
@@ -165,8 +165,7 @@ const Detail = ({ data, dict }) => {
                     <Link href="/route_detail">
                         <a style={{ display: 'flex' }}>
                             <div className="left">
-                                <img src="/img.png" />
-                                <img src={related['pic'] ==''? getStaticFile('/img.png'):related['pic']} />
+                                <img src={related['pic'] ==''? getStaticFile('/pic.png'):related['pic']} />
                             </div>
                             <div className="right">
                                 <div className="top">

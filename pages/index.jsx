@@ -69,7 +69,7 @@ const Row = (props) => {
         <div key={rowID} style={{ padding: '0 15px' }}>
             <Link href={`/route_detail?id=${rowData['id']}`} >
                 <div style={{ display: '-webkit-box', display: 'flex', padding: '15px 0' }}>
-                    <img style={{ height: '80px', width: '100px' }} src={rowData['pic'] == '' ? getStaticFile('/img.png') : rowData['pic']} />
+                    <img style={{ height: '80px', width: '100px' }} src={rowData['pic'] == '' ? getStaticFile('/pic.png') : rowData['pic']} />
                     <div className="content">
                         <div className="contentTop">
                             <span>{rowData['name']}</span>
