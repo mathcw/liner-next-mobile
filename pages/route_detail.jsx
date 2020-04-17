@@ -7,13 +7,13 @@ import axios from 'axios';
 import { host, getStaticFile } from '../lib/util';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
-import { get,cache } from '../lib/lruCache';
+import { get, cache } from '../lib/lruCache';
 
 const Detail = ({ data, dict }) => {
 
     const dictDepCity = dict['depCity'] ? dict['depCity'] : {};
     const dictDesCity = dict['desCity'] ? dict['desCity'] : {};
-    const related = data['其他航线'] ?(data['其他航线'].length > 0?data['其他航线'][0]:null):null;
+    const related = data['其他航线'] ? (data['其他航线'].length > 0 ? data['其他航线'][0] : null) : null;
 
     const fees = data['fees'].map(fee => {
         fee['dep_date'] = data['dep_date'];
@@ -23,7 +23,7 @@ const Detail = ({ data, dict }) => {
         <div style={{ background: '#fff' }}>
             <Head>
                 <meta charSet="UTF-8" />
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />                
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
             <div className="route_top">
                 <Link href="/index">
@@ -84,33 +84,35 @@ const Detail = ({ data, dict }) => {
                     data['itins'] && data['itins'].map(itin => {
                         return (
                             <div key={itin['id']}>
-                            <div className="top">
-                                <span className="num">D{itin['order']}</span>
-                                <span className="headcont">{itin['destination']}</span>
-                            </div>
-                            <div className="content">
-                                <div className="time">
-                                    <span className="text">时间安排:{itin['arr_time']}-{itin['level_time']}</span>
+                                <div className="top">
+                                    <span className="num">D{itin['order']}</span>
+                                    <span className="headcont">{itin['destination']}</span>
                                 </div>
-                                <div>
-                                    <img src="/catering.png" />
+                                <div className="content">
+                                    <div className="time">
+                                        <span className="text">时间安排:{itin['arr_time']}-{itin['level_time']}</span>
+                                    </div>
+                                    <div>
+                                        <img src="/catering.png" />
+                                        {
+                                            itin['breakfast'] != '' && <div className="text">早餐:{itin['breakfast']}</div>
+                                        }
+                                        {
+                                            itin['lunch'] != '' && <div className="text">中餐:{itin['lunch']}</div>
+                                        }
+                                        {
+                                            itin['dinner'] != '' && <div className="text">晚餐:{itin['dinner']}</div>
+                                        }
+                                    </div>
                                     {
-                                        itin['breakfast'] != '' && <div className="text">早餐:{itin['breakfast']}</div>
+                                        itin['pic_arr'].length > 0 && <div className="img">
+                                            <img src={itin['pic_arr'].length > 0 ? itin['pic_arr'][0] : getStaticFile('/pic.png')} />
+                                        </div>
                                     }
-                                    {
-                                        itin['lunch'] != '' && <div className="text">中餐:{itin['lunch']}</div>
-                                    }
-                                    {
-                                        itin['dinner'] != '' && <div className="text">晚餐:{itin['dinner']}</div>
-                                    }
+                                    <div className="text">
+                                        {itin['des']}
+                                    </div>
                                 </div>
-                                <div className="img">
-                                    <img src={itin['pic_arr'].length > 0 ? itin['pic_arr'][0] : getStaticFile('/pic.png')} />
-                                </div>
-                                <div className="text">
-                                {itin['des']}
-                                </div>
-                            </div>
                             </div>
                         )
                     })
@@ -160,32 +162,32 @@ const Detail = ({ data, dict }) => {
             {/* 其他航线 */}
             {
                 related && <div className="other_routes">
-                <div className="headline">其他产品</div>
-                <div className="home_content">
-                    <Link href="/route_detail">
-                        <a style={{ display: 'flex' }}>
-                            <div className="left">
-                                <img src={related['pic'] ==''? getStaticFile('/pic.png'):related['pic']} />
-                            </div>
-                            <div className="right">
-                                <div className="top">
-                                    {related['name']}
+                    <div className="headline">其他产品</div>
+                    <div className="home_content">
+                        <Link href="/route_detail">
+                            <a style={{ display: 'flex' }}>
+                                <div className="left">
+                                    <img src={related['pic'] == '' ? getStaticFile('/pic.png') : related['pic']} />
                                 </div>
-                                <div className="bottom">
-                                    <div className="price">
-                                        <span className="c">￥</span>
-                                        <span className="m">{related['min_price']}</span>
-                                        <span className="c">起/人</span>
+                                <div className="right">
+                                    <div className="top">
+                                        {related['name']}
+                                    </div>
+                                    <div className="bottom">
+                                        <div className="price">
+                                            <span className="c">￥</span>
+                                            <span className="m">{related['min_price']}</span>
+                                            <span className="c">起/人</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
-                    </Link>
+                            </a>
+                        </Link>
+                    </div>
                 </div>
-            </div>
 
             }
-            <Order fees={fees} group_id={data['id']}/>
+            <Order fees={fees} group_id={data['id']} />
         </div>
     );
 }
@@ -202,17 +204,17 @@ Detail.getInitialProps = async (appContext) => {
     const res = await axios.get(`${host}api/WebApi/detail?id=${query['id']}`);
 
     if (res.status == 200 && res.data) {
-        if(!res.data['data'] && res.data['message'] =='重复操作' ){
+        if (!res.data['data'] && res.data['message'] == '重复操作') {
             const cache = get(`${host}api/WebApi/detail?id=${query['id']}`);
-            if(!cache){
+            if (!cache) {
                 return {
                     data: null
                 }
             }
             return cache;
         }
-        if(res.data['data']){
-            cache(`${host}api/WebApi/detail?id=${query['id']}`,{
+        if (res.data['data']) {
+            cache(`${host}api/WebApi/detail?id=${query['id']}`, {
                 data: res.data['data']
             })
             return {
