@@ -274,7 +274,6 @@ body{
 }
 .daily_schedule .content{
     border-left: 1px dashed #000000;
-    padding-left: 2.25rem;
 }
 .daily_schedule .content .time{
     display: flex;

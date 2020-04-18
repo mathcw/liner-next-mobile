@@ -8,6 +8,8 @@ import { host, getStaticFile } from '../lib/util';
 import { connect } from 'react-redux';
 import { withRouter } from 'next/router';
 import { get, cache } from '../lib/lruCache';
+import { Input } from 'antd';
+
 
 const Detail = ({ data, dict }) => {
 
@@ -42,13 +44,24 @@ const Detail = ({ data, dict }) => {
                 </div>
             </div>
             {/* 图片下面文字 */}
-            <div className="route_text">
-                {data['kind'] != 4 && <span>{data['ship_dep']}</span>}
-            </div>
+            {data['kind'] != 4 &&
+                <Input.TextArea autoSize value={data['ship_dep']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
+            }
             {/* 航线简介 */}
             <div className="course_introduction">
                 <div className="headline">产品简介</div>
-                <div className="content">
+                <div className="content" style={{paddingLeft:'11px'}}>
                     <div className="row">
                         <span className="lable">出发日期：</span>
                         <span className="matter">{data['dep_date']}</span>
@@ -71,9 +84,18 @@ const Detail = ({ data, dict }) => {
             {
                 data['kind'] != 1 && <div className="pro_feature">
                     <div className="headline">产品特色</div>
-                    <div className="text">
-                        {data['bright_spot']}
-                    </div>
+                    <Input.TextArea autoSize value={data['bright_spot']}
+                        style={{
+                            width: '100%'
+                            , fontSize: '0.875rem'
+                            , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                            , fontWeight: '500'
+                            , color: 'rgba(0,0,0,0.45)'
+                            , lineHeight: '24px'
+                            , marginTop: '.5rem'
+                            , border: 'none'
+                        }}
+                        readOnly />
                 </div>
             }
 
@@ -86,12 +108,20 @@ const Detail = ({ data, dict }) => {
                             <div key={itin['id']}>
                                 <div className="top">
                                     <span className="num">D{itin['order']}</span>
-                                    <span className="headcont">{itin['destination']}</span>
+                                    <span className="headcont">
+                                        {itin['dep_city'] == '' ? '' : itin['dep_city']}
+                                        {(itin['dep_city'] != '' && itin['destination'] != '') ? '-' : ''}
+                                        {itin['destination'] != '' ? itin['destination'] : ''}
+                                    </span>
                                 </div>
                                 <div className="content">
-                                    <div className="time">
-                                        <span className="text">时间安排:{itin['arr_time']}-{itin['level_time']}</span>
-                                    </div>
+                                    {
+                                        (itin['arr_time'] != '' || itin['level_time'] != '') && <div className="time">
+                                            <span className="text">{itin['arr_time'] == '' ? '' : itin['arr_time']}
+                                                {(itin['arr_time'] != '' && itin['level_time'] != '') ? '-' : ''}
+                                                {itin['level_time'] != '' ? itin['level_time'] : ''}</span>
+                                        </div>
+                                    }
                                     <div>
                                         <img src="/catering.png" />
                                         {
@@ -109,9 +139,18 @@ const Detail = ({ data, dict }) => {
                                             <img src={itin['pic_arr'].length > 0 ? itin['pic_arr'][0] : getStaticFile('/pic.png')} />
                                         </div>
                                     }
-                                    <div className="text">
-                                        {itin['des']}
-                                    </div>
+                                    <Input.TextArea autoSize value={itin['des']}
+                                        style={{
+                                            width: '100%'
+                                            , fontSize: '0.875rem'
+                                            , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                                            , fontWeight: '500'
+                                            , color: 'rgba(0,0,0,0.45)'
+                                            , lineHeight: '24px'
+                                            , marginTop: '.5rem'
+                                            , border: 'none'
+                                        }}
+                                        readOnly />
                                 </div>
                             </div>
                         )
@@ -121,43 +160,80 @@ const Detail = ({ data, dict }) => {
             {/* 费用须知 */}
             <div className="cost_information">
                 <div className="headline">预订须知</div>
-                <div className="cloumn">
-                    <div className="text">
-                        {data['book_info']}
-                    </div>
-                </div>
+                <Input.TextArea autoSize value={data['book_info']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
             </div>
-            <div className="cost_information">
-                <div className="headline">费用说明</div>
-                <div className="cloumn">
-                    <div className="text">
-                        {data['fee_info']}
-                    </div>
-                </div>
+            {/* {
+                data['fee_info'] != '' && <div className="cost_information">
+                <div className="headline">旅游费用</div>
+                <Input.TextArea autoSize value={data['fee_info']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
             </div>
+            } */}
             <div className="cost_information">
                 <div className="headline">费用包含</div>
-                <div className="cloumn">
-                    <div className="text">
-                        {data['fee_include']}
-                    </div>
-                </div>
+                <Input.TextArea autoSize value={data['fee_include']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
             </div>
             <div className="cost_information">
                 <div className="headline">费用不含</div>
-                <div className="cloumn">
-                    <div className="text">
-                        {data['fee_exclude']}
-                    </div>
-                </div>
+                <Input.TextArea autoSize value={data['fee_exclude']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
             </div>
             <div className="cost_information">
                 <div className="headline">取消条款</div>
-                <div className="cloumn">
-                    <div className="text">
-                        {data['cancel_info']}
-                    </div>
-                </div>
+                <Input.TextArea autoSize value={data['cancel_info']}
+                    style={{
+                        width: '100%'
+                        , fontSize: '0.875rem'
+                        , fontFamily: 'PingFang-SC-Medium,PingFang-SC'
+                        , fontWeight: '500'
+                        , color: 'rgba(0,0,0,0.45)'
+                        , lineHeight: '24px'
+                        , marginTop: '.5rem'
+                        , border: 'none'
+                    }}
+                    readOnly />
             </div>
             {/* 其他航线 */}
             {
