@@ -1,7 +1,7 @@
 import App from 'next/app';
-import PageLoading from '../components/Loading';
 import { Provider } from 'react-redux';
 import Router from 'next/router'
+import PageLoading from '../components/Loading';
 import withRedux from '../lib/withRedux';
 import { createCache } from '../lib/lruCache';
 
@@ -61,6 +61,19 @@ class WebApp extends App {
                 <Provider store={reduxStore}>
                     <Component {...pageProps} />
                 </Provider>
+                <div style={{display:'flex',flexDirection:'column',textAlign:'center'}}>
+                    <span>
+                        <a href="http://www.beian.miit.gov.cn/">
+                            京ICP备20014193号
+                        </a>
+                    </span>
+                    <span>
+                        乐邮环球
+                    </span>
+                    <span>
+                        Copyright 2020 乐邮环球 All Rights Reserved
+                    </span>
+                </div>
             </>
         )
     }
