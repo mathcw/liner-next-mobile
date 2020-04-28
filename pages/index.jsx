@@ -4,6 +4,7 @@ import { host, getStaticFile } from '../lib/util';
 import { connect } from 'react-redux';
 import Link from '../components/NextLink';
 import { get,cache } from '../lib/lruCache';
+import {wxConfig} from '../lib/weixin';
 import '../css/index.css'
 
 
@@ -350,6 +351,17 @@ class Page extends React.Component {
         }, () => {
             this.justSearch(0);
         })
+    }
+
+    async componentDidMount(){
+        if(window){
+            try {
+                wxConfig(window.location.href,'乐邮环球','乐邮环球'
+                ,window.location.href);
+            } catch (error) {
+                // log
+            }
+        }
     }
 
 
