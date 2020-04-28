@@ -356,8 +356,8 @@ class Page extends React.Component {
     async componentDidMount(){
         if(window){
             try {
-                wxConfig(window.location.href,'乐邮环球','乐邮环球'
-                ,window.location.href);
+                wxConfig(encodeURIComponent('http://m.58cruises.com'),'乐邮环球','乐邮环球'
+                ,encodeURIComponent('http://m.58cruises.com'));
             } catch (error) {
                 // log
             }
