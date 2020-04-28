@@ -354,10 +354,10 @@ class Page extends React.Component {
     }
 
     async componentDidMount(){
-        if(window){
+        if(location){
             try {
-                wxConfig(encodeURIComponent('http://m.58cruises.com'),'乐邮环球','乐邮环球'
-                ,encodeURIComponent('http://m.58cruises.com'));
+                wxConfig(encodeURIComponent(location.href.split('#')[0]),'乐邮环球','乐邮环球'
+                ,encodeURIComponent(location.href.split('#')[0]));
             } catch (error) {
                 // log
             }
