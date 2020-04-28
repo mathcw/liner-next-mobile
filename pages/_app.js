@@ -71,7 +71,7 @@ class WebApp extends App {
                         乐邮环球
                     </span>
                     <span>
-                        Copyright 2020 乐邮环球 All Rights Reserved
+                        Copyright 2020 北京亚美运通国际旅行社有限责任公司 All Rights Reserved
                     </span>
                 </div>
             </>
