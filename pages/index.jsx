@@ -414,10 +414,10 @@ class Page extends React.Component {
                         {orderBy === 'create_at' && orderDir === 'desc' && <Icon type="down" size='xs' onClick={() => this.clickOrderDir('asc')} />}
                         {orderBy === 'create_at' && orderDir === 'asc' && <Icon type="up" size='xs' onClick={() => this.clickOrderDir('desc')} />}
                     </div>
-                    <div className="menu" onClick={() => this.clickOrderBY('order_nums')}>销量
+                    {/* <div className="menu" onClick={() => this.clickOrderBY('order_nums')}>销量
                         {orderBy === 'order_nums' && orderDir === 'desc' && <Icon type="down" size='xs' onClick={() => this.clickOrderDir('asc')} />}
                         {orderBy === 'order_nums' && orderDir === 'asc' && <Icon type="up" size='xs' onClick={() => this.clickOrderDir('desc')} />}
-                    </div>
+                    </div> */}
                     <div className="menu" onClick={() => this.clickOrderBY('min_price')}>价格
                         {orderBy === 'min_price' && orderDir === 'desc' && <Icon type="down" size='xs' onClick={() => this.clickOrderDir('asc')} />}
                         {orderBy === 'min_price' && orderDir === 'asc' && <Icon type="up" size='xs' onClick={() => this.clickOrderDir('desc')} />}
